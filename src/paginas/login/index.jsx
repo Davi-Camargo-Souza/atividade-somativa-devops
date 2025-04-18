@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { auth } from '../../firebase'; // Supondo que você tenha um arquivo firebase configurado
+import { auth } from '../../Firebase'; // Supondo que você tenha um arquivo firebase configurado
 import './index.css';
 
 function Login() {
