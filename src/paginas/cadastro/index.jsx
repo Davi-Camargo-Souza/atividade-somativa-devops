@@ -4,6 +4,7 @@ import { auth } from '../../firebase';
 import './index.css';
 
 function Cadastro() {
+  const [modalAberto, setModalAberto] = useState(false);
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [confirmarSenha, setConfirmarSenha] = useState('');
@@ -20,7 +21,7 @@ function Cadastro() {
 
     try {
       await auth.createUserWithEmailAndPassword(email, senha);
-      navigate("/principal");
+      setModalAberto(true);
     } catch (error) {
       const errorCode = error.code;
       
@@ -36,8 +37,44 @@ function Cadastro() {
     }
   };
 
+  {modalAberto && (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 max-w-sm w-full text-center animate-fade-in">
+        <h3 className="text-xl font-semibold text-blue-600 dark:text-blue-400 mb-2">Cadastro realizado!</h3>
+        <p className="text-gray-700 dark:text-gray-300 mb-4">Sua conta foi criada com sucesso.</p>
+        <button 
+          onClick={() => {
+            setModalAberto(false);
+            navigate("/principal");
+          }}
+          className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors dark:bg-blue-500 dark:hover:bg-blue-600"
+        >
+          Ir para o sistema
+        </button>
+      </div>
+    </div>
+  )}
+  
+
   return (
     <>
+      {modalAberto && (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 max-w-sm w-full text-center animate-fade-in">
+        <h3 className="text-xl font-semibold text-blue-600 dark:text-blue-400 mb-2">Cadastro realizado!</h3>
+        <p className="text-gray-700 dark:text-gray-300 mb-4">Sua conta foi criada com sucesso.</p>
+        <button 
+          onClick={() => {
+            setModalAberto(false);
+            navigate("/principal");
+          }}
+          className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors dark:bg-blue-500 dark:hover:bg-blue-600"
+        >
+          Ir para o sistema
+        </button>
+      </div>
+    </div>
+  )}
       <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 space-y-6">
         <h2 className="text-3xl font-bold text-center text-blue-600 dark:text-blue-400">Cadastre-se</h2>
         <p className="text-center text-gray-600 dark:text-gray-300">Crie uma conta para acessar o sistema</p>
